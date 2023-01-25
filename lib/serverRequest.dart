@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+String ipAddr = '192.168.133.1';
+
 Future<String> login(String userEmail, String userPwd) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletSession');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletSession');
 
   var response = await http.post(url,
       body: {'action': 'login', 'userEmail': userEmail, 'userPwd': userPwd});
@@ -13,14 +15,14 @@ Future<String> login(String userEmail, String userPwd) async {
 
 Future<void> logout() async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletSession');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletSession');
   url = url.replace(queryParameters: {'action': 'logout'});
   http.get(url);
 }
 
 Future<List<Course>> loadAllCourses() async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
   url = url.replace(queryParameters: {'action': 'allCourse'});
 
   var response = await http.get(url);
@@ -38,7 +40,7 @@ Future<List<Course>> loadAllCourses() async {
 
 Future<List<Teacher>> loadTeacherOfCourse(int idCourse) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
   url = url.replace(queryParameters: {
     'action': 'teachersOfCourse',
     'course_id': idCourse.toString()
@@ -62,7 +64,7 @@ Future<List<Teacher>> loadTeacherOfCourse(int idCourse) async {
 Future<List<LessonWrapper>> lessonsOfTeacherCourse(
     int teacherid, int courseid) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
   url = url.replace(queryParameters: {
     'action': 'lessonsOfTeacherCourseNotBooked',
     'teacherid': teacherid.toString(),
@@ -95,7 +97,7 @@ Future<List<LessonWrapper>> lessonsOfTeacherCourse(
 
 Future<int> makeBooking(String userEmail, String userPwd, int lessonId) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
 
   var response = await http.post(url, body: {
     'action': 'insertBookingEmail',
@@ -110,7 +112,7 @@ Future<int> makeBooking(String userEmail, String userPwd, int lessonId) async {
 Future<bool> confirmBooking(
     String userEmail, String userPwd, int bookingId) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
 
   var response = await http.post(url, body: {
     'action': 'confirmBookingEmail',
@@ -125,7 +127,7 @@ Future<bool> confirmBooking(
 Future<bool> deleteBooking(
     String userEmail, String userPwd, int bookingId) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
 
   var response = await http.post(url, body: {
     'action': 'deleteBookingEmail',
@@ -140,7 +142,7 @@ Future<bool> deleteBooking(
 Future<List<BookedLessonWrapper>> userLessonsList(
     String userEmail, String userPwd) async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
 
   var response = await http.post(url, body: {
     'action': 'userBookingsEmail',
@@ -199,7 +201,7 @@ final int idBooking;
 
 Future<List<LessonWrapper>> loadAllLessons() async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
   url = url.replace(queryParameters: {'action': 'lessons'});
   var response = await http.get(url);
   List<LessonWrapper> lessons = [];
@@ -227,7 +229,7 @@ Future<List<LessonWrapper>> loadAllLessons() async {
 
 Future<List<BookedLesson>> loadBookedLessons() async {
   Uri url = Uri.parse(
-      'http://192.168.1.243:8081/learn4glory_war_exploded/ServletDao');
+      'http://$ipAddr:8081/learn4glory_war_exploded/ServletDao');
   url = url.replace(queryParameters: {'action': 'allBookedLesson'});
   var response = await http.get(url);
   List<BookedLesson> bookedLessons = [];
